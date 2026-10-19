@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Проверка размеров моделей</title>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<style>
+  :root { color-scheme: dark; }
+  body { font-family: Arial, sans-serif; background:#101311; color:#ebe8df; margin:0; padding:14px; line-height:1.5; }
+  h1 { font-size:1.3em; margin:0 0 6px; }
+  p { color:#a8a69d; margin:4px 0 12px; }
+  .wrapt { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; min-width:560px; }
+  th, td { border:1px solid #2b312d; padding:8px; text-align:left; font-size:.95em; vertical-align:middle; }
+  th { background:#181c19; color:#7fd1a5; }
+  td.num { font-variant-numeric: tabular-nums; }
+  model-viewer { width:90px; height:90px; background:#1a1b18; border-radius:8px; }
+  .big { color:#e0b45c; font-weight:bold; }
+</style>
+</head>
+<body>
+<h1>Проверка размеров моделей (в метрах)</h1>
+<p>Подождите, пока загрузятся все модели, затем сфотографируйте таблицу целиком. «Коэффициент» показывает, во сколько раз нужно умножить размер, чтобы самая большая сторона модели стала равна 1 м (вписать в куб 1×1×1 м).</p>
+<div class="wrapt">
+<table>
+  <thead><tr><th>Модель</th><th></th><th>Ширина, м</th><th>Высота, м</th><th>Глубина, м</th><th>Самая большая сторона, м</th><th>Коэффициент до 1 м</th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+</div>
+<script>
+  const items = [
+    ["krasavka", "Журавль-красавка"], ["klikun", "Лебедь-кликун"], ["strepet", "Стрепет"],
+    ["pelikan", "Кудрявый пеликан"], ["berkut", "Беркут"], ["prostrel", "Прострел раскрытый"],
+    ["adonis", "Адонис весенний"], ["tyulpan", "Тюльпан Шренка"]
+  ];
+  const tbody = document.getElementById("rows");
+  items.forEach(([slug, name]) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = '<td>' + name + '</td>' +
+      '<td><model-viewer src="' + slug + '.glb" camera-controls interaction-prompt="none" alt="' + name + '"></model-viewer></td>' +
+      '<td class="num w">…</td><td class="num h">…</td><td class="num d">…</td><td class="num m">…</td><td class="num k">…</td>';
+    tbody.appendChild(tr);
+    const mv = tr.querySelector("model-viewer");
+    mv.addEventListener("load", () => {
+      const s = mv.getDimensions();
+      const max = Math.max(s.x, s.y, s.z);
+      tr.querySelector(".w").textContent = s.x.toFixed(3);
+      tr.querySelector(".h").textContent = s.y.toFixed(3);
+      tr.querySelector(".d").textContent = s.z.toFixed(3);
+      tr.querySelector(".m").textContent = max.toFixed(3);
+      const k = tr.querySelector(".k");
+      k.textContent = (1 / max).toFixed(4);
+      k.classList.add("big");
+    });
+    mv.addEventListener("error", () => {
+      tr.querySelector(".w").textContent = "ошибка загрузки";
+    });
+  });
+</script>
+</body>
+</html>
