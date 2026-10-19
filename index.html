@@ -5,23 +5,82 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Красная книга Казахстана в AR: СКО</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 12px; line-height: 1.6; max-width: 760px; margin-inline: auto; }
-  a { color: #1b5e3f; font-size: 1.1em; }
-  @media (prefers-color-scheme: dark) { body { background: #1b1b1b; color: #eee; } a { color: #7fd1a5; } }
+:root { color-scheme: dark; --bg:#101311; --panel:#181c19; --line:#2b312d; --text:#ebe8df; --muted:#a8a69d; --accent:#e0b45c; --accent2:#7fd1a5; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family: Arial, Helvetica, sans-serif; line-height:1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 14px; }
+.top { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:.9em; color:var(--muted); padding:6px 0 12px; border-bottom:1px solid var(--line); }
+.top a { color:var(--accent2); text-decoration:none; }
+.serif { font-family: Georgia, 'Times New Roman', serif; }
+.stage { margin-top:14px; border-radius:14px; overflow:hidden; border:1px solid var(--line); background: radial-gradient(circle at 50% 30%, #3b3a33 0%, #1a1b18 55%, #0d0f0d 100%); }
+model-viewer { width:100%; height:58vh; min-height:340px; --poster-color: transparent; background:transparent; }
+.arbtn { position:absolute; left:50%; transform:translateX(-50%); bottom:16px; background:var(--accent); color:#1b1608; border:0; border-radius:999px; padding:12px 22px; font-size:1em; font-weight:bold; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,.5); }
+.hint { font-size:.85em; color:var(--muted); padding:8px 4px 0; }
+.plaque { margin-top:14px; padding:16px 18px; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:10px; }
+.plaque .num { color:var(--accent); letter-spacing:.12em; font-size:.8em; text-transform:uppercase; }
+.plaque h1 { margin:4px 0 2px; font-size:1.8em; font-weight:normal; }
+.plaque .lat { color:var(--muted); font-style:italic; margin:0; }
+.plaque .kaz { color:var(--text); margin:2px 0 0; }
+.tags { margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag { font-size:.78em; border:1px solid var(--accent); color:var(--accent); border-radius:999px; padding:3px 10px; }
+.cards { display:grid; gap:12px; margin-top:14px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+.card h2 { margin:0 0 6px; font-size:.8em; letter-spacing:.12em; text-transform:uppercase; color:var(--accent2); font-weight:bold; }
+.card p { margin:0; }
+.src { font-size:.85em; color:var(--muted); margin-top:8px !important; }
+.pager { display:flex; justify-content:space-between; gap:10px; margin:18px 0 6px; }
+.pager a { flex:1; text-align:center; text-decoration:none; color:var(--text); border:1px solid var(--line); background:var(--panel); border-radius:10px; padding:12px 8px; font-size:.95em; }
+.pager a:hover { border-color:var(--accent); }
+.foot { font-size:.82em; color:var(--muted); text-align:center; padding:10px 0 24px; }
+@media (min-width: 760px) { .cards { grid-template-columns: 1fr 1fr; } .cards .wide { grid-column: 1 / -1; } }
+
+.hero { padding:26px 4px 10px; }
+.hero .kick { color:var(--accent); letter-spacing:.14em; font-size:.8em; text-transform:uppercase; }
+.hero h1 { font-size:2em; font-weight:normal; margin:6px 0 8px; }
+.hero p { color:var(--muted); margin:0; }
+.hall { margin-top:22px; }
+.hall h2 { font-size:.85em; letter-spacing:.14em; text-transform:uppercase; color:var(--accent2); border-bottom:1px solid var(--line); padding-bottom:6px; }
+.grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); margin-top:12px; }
+.gcard { display:flex; flex-direction:column; gap:2px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; text-decoration:none; color:var(--text); }
+.gcard:hover { border-color:var(--accent); }
+.gn { color:var(--accent); font-size:.8em; letter-spacing:.12em; }
+.gt { font-size:1.2em; }
+.gl { color:var(--muted); font-style:italic; font-size:.9em; }
+.how { margin-top:24px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; }
+.how h2 { margin:0 0 6px; font-size:.85em; letter-spacing:.14em; text-transform:uppercase; color:var(--accent2); }
+.how ol { margin:0; padding-left:20px; }
 </style>
 </head>
 <body>
-<h1>Красная книга Казахстана в AR</h1>
-<p>Редкие виды Северо-Казахстанской области в дополненной реальности. Выберите объект и нажмите кнопку AR на странице.</p>
-<ul>
-<li><a href="krasavka.html">Журавль-красавка</a></li>
-<li><a href="klikun.html">Лебедь-кликун</a></li>
-<li><a href="strepet.html">Стрепет</a></li>
-<li><a href="pelikan.html">Кудрявый пеликан</a></li>
-<li><a href="berkut.html">Беркут</a></li>
-<li><a href="prostrel.html">Прострел раскрытый (сон-трава)</a></li>
-<li><a href="adonis.html">Адонис весенний (горицвет)</a></li>
-<li><a href="tyulpan.html">Тюльпан Шренка</a></li>
-</ul>
+<div class="wrap">
+  <div class="hero">
+    <div class="kick">Северо-Казахстанская область</div>
+    <h1 class="serif">Красная книга Казахстана в дополненной реальности</h1>
+    <p>Галерея редких видов: 8 экспонатов, которые можно рассмотреть со всех сторон и поставить перед собой через камеру телефона.</p>
+  </div>
+
+  <div class="hall"><h2>Зал птиц</h2><div class="grid">
+<a class="gcard" href="krasavka.html"><span class="gn">01</span><span class="gt serif">Журавль-красавка</span><span class="gl">Anthropoides virgo</span></a>
+<a class="gcard" href="klikun.html"><span class="gn">02</span><span class="gt serif">Лебедь-кликун</span><span class="gl">Cygnus cygnus</span></a>
+<a class="gcard" href="strepet.html"><span class="gn">03</span><span class="gt serif">Стрепет</span><span class="gl">Tetrax tetrax</span></a>
+<a class="gcard" href="pelikan.html"><span class="gn">04</span><span class="gt serif">Кудрявый пеликан</span><span class="gl">Pelecanus crispus</span></a>
+<a class="gcard" href="berkut.html"><span class="gn">05</span><span class="gt serif">Беркут</span><span class="gl">Aquila chrysaetos</span></a>
+  </div></div>
+
+  <div class="hall"><h2>Зал растений</h2><div class="grid">
+<a class="gcard" href="prostrel.html"><span class="gn">06</span><span class="gt serif">Прострел раскрытый (сон-трава)</span><span class="gl">Pulsatilla patens</span></a>
+<a class="gcard" href="adonis.html"><span class="gn">07</span><span class="gt serif">Адонис весенний (горицвет)</span><span class="gl">Adonis vernalis</span></a>
+<a class="gcard" href="tyulpan.html"><span class="gn">08</span><span class="gt serif">Тюльпан Шренка</span><span class="gl">Tulipa schrenkii</span></a>
+  </div></div>
+
+  <div class="how"><h2>Как смотреть в AR</h2>
+    <ol>
+      <li>Откройте страницу экспоната на телефоне: в Chrome (Android) или Safari (iPhone).</li>
+      <li>Нажмите кнопку «Посмотреть в AR».</li>
+      <li>Наведите камеру на ровную поверхность и поставьте модель.</li>
+    </ol>
+  </div>
+  <p class="foot">Проект ученицы. 3D-модели созданы автором проекта с помощью встроенного ИИ на сайте Womp.com.</p>
+</div>
 </body>
 </html>

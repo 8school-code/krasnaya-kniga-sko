@@ -3,34 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Стрепет</title>
+<title>Стрепет: Красная книга СКО в AR</title>
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 12px; line-height: 1.45; max-width: 760px; margin-inline: auto; }
-  h1 { margin: 8px 0 2px; font-size: 1.5em; }
-  .sub { color: #555; margin: 0 0 10px; }
-  model-viewer { width: 100%; height: 55vh; background: #f2f2f2; border-radius: 8px; }
-  .note { font-size: 0.9em; color: #444; }
-  a { color: #1b5e3f; }
-  @media (prefers-color-scheme: dark) {
-    body { background: #1b1b1b; color: #eee; }
-    .sub, .note { color: #bbb; }
-    a { color: #7fd1a5; }
-    model-viewer { background: #2a2a2a; }
-  }
+:root { color-scheme: dark; --bg:#101311; --panel:#181c19; --line:#2b312d; --text:#ebe8df; --muted:#a8a69d; --accent:#e0b45c; --accent2:#7fd1a5; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family: Arial, Helvetica, sans-serif; line-height:1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 14px; }
+.top { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:.9em; color:var(--muted); padding:6px 0 12px; border-bottom:1px solid var(--line); }
+.top a { color:var(--accent2); text-decoration:none; }
+.serif { font-family: Georgia, 'Times New Roman', serif; }
+.stage { margin-top:14px; border-radius:14px; overflow:hidden; border:1px solid var(--line); background: radial-gradient(circle at 50% 30%, #3b3a33 0%, #1a1b18 55%, #0d0f0d 100%); }
+model-viewer { width:100%; height:58vh; min-height:340px; --poster-color: transparent; background:transparent; }
+.arbtn { position:absolute; left:50%; transform:translateX(-50%); bottom:16px; background:var(--accent); color:#1b1608; border:0; border-radius:999px; padding:12px 22px; font-size:1em; font-weight:bold; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,.5); }
+.hint { font-size:.85em; color:var(--muted); padding:8px 4px 0; }
+.plaque { margin-top:14px; padding:16px 18px; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:10px; }
+.plaque .num { color:var(--accent); letter-spacing:.12em; font-size:.8em; text-transform:uppercase; }
+.plaque h1 { margin:4px 0 2px; font-size:1.8em; font-weight:normal; }
+.plaque .lat { color:var(--muted); font-style:italic; margin:0; }
+.plaque .kaz { color:var(--text); margin:2px 0 0; }
+.tags { margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag { font-size:.78em; border:1px solid var(--accent); color:var(--accent); border-radius:999px; padding:3px 10px; }
+.cards { display:grid; gap:12px; margin-top:14px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+.card h2 { margin:0 0 6px; font-size:.8em; letter-spacing:.12em; text-transform:uppercase; color:var(--accent2); font-weight:bold; }
+.card p { margin:0; }
+.src { font-size:.85em; color:var(--muted); margin-top:8px !important; }
+.pager { display:flex; justify-content:space-between; gap:10px; margin:18px 0 6px; }
+.pager a { flex:1; text-align:center; text-decoration:none; color:var(--text); border:1px solid var(--line); background:var(--panel); border-radius:10px; padding:12px 8px; font-size:.95em; }
+.pager a:hover { border-color:var(--accent); }
+.foot { font-size:.82em; color:var(--muted); text-align:center; padding:10px 0 24px; }
+@media (min-width: 760px) { .cards { grid-template-columns: 1fr 1fr; } .cards .wide { grid-column: 1 / -1; } }
 </style>
 </head>
 <body>
-<h1>Стрепет</h1>
-<p class="sub">Безгелдек · <i>Tetrax tetrax</i></p>
-<model-viewer src="strepet.glb" ios-src="strepet.usdz"
-  ar ar-modes="webxr scene-viewer quick-look"
-  camera-controls auto-rotate shadow-intensity="1"
-  alt="3D-модель: Стрепет"></model-viewer>
-<p class="note">Нажмите кнопку AR на модели, чтобы поставить её перед собой через камеру телефона. Открывайте страницу в браузере телефона: Chrome на Android, Safari на iPhone.</p>
-<p><b>Статус.</b> Вид внесён в официальный перечень редких и находящихся под угрозой исчезновения видов Республики Казахстан (Постановление Правительства РК № 1034).</p>
-<p><b>В СКО.</b> В СКО редкий гнездящийся вид степных районов. Живёт на уцелевших степных участках и брошенных полях с сорной растительностью.</p>
-<p class="note">Источник: 7152.kz, «Какие редкие животные обитают на территории СКО» (2020).<br>3D-модель создана автором проекта с помощью встроенного ИИ на сайте Womp.com.</p>
-<p><a href="index.html">← Все объекты проекта</a></p>
+<div class="wrap">
+  <div class="top"><a href="index.html">← Галерея редких видов СКО</a><span>Экспонат 3 из 8</span></div>
+
+  <div class="stage" style="position:relative">
+    <model-viewer src="strepet.glb" ios-src="strepet.usdz"
+      ar ar-modes="webxr scene-viewer quick-look"
+      camera-controls auto-rotate shadow-intensity="1"
+      alt="3D-модель: Стрепет">
+      <button slot="ar-button" class="arbtn">Посмотреть в AR</button>
+    </model-viewer>
+  </div>
+  <p class="hint">Модель можно вращать пальцем. Кнопка AR появляется на телефоне: откройте страницу в Chrome (Android) или Safari (iPhone).</p>
+
+  <div class="plaque">
+    <div class="num">Экспонат № 3</div>
+    <h1 class="serif">Стрепет</h1>
+    <p class="lat">Tetrax tetrax</p>
+    <p class="kaz">Безгелдек</p>
+    <div class="tags"><span class="tag">Птицы</span><span class="tag">Красная книга Казахстана</span></div>
+  </div>
+
+  <div class="cards">
+    <div class="card wide"><h2>Статус</h2><p>Вид внесён в официальный перечень редких и находящихся под угрозой исчезновения видов Республики Казахстан (Постановление Правительства РК № 1034).</p></div>
+    <div class="card wide"><h2>В СКО</h2><p>Редкий гнездящийся вид степных районов. Живёт на уцелевших степных участках и брошенных полях с сорной растительностью.</p><p class="src">Источник: 7152.kz, «Какие редкие животные обитают на территории СКО» (2020)</p></div>
+  </div>
+
+  <div class="pager"><a href="klikun.html">← Лебедь-кликун</a><a href="pelikan.html">Кудрявый пеликан →</a></div>
+  <p class="foot">3D-модель создана автором проекта с помощью встроенного ИИ на сайте Womp.com.</p>
+</div>
 </body>
 </html>
