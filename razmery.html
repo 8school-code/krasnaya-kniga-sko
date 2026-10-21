@@ -38,7 +38,7 @@
   items.forEach(([slug, name]) => {
     const tr = document.createElement("tr");
     tr.innerHTML = '<td>' + name + '</td>' +
-      '<td><model-viewer src="' + slug + '.glb" camera-controls interaction-prompt="none" alt="' + name + '"></model-viewer></td>' +
+      '<td><model-viewer src="' + slug + '.glb?v=2" camera-controls interaction-prompt="none" alt="' + name + '"></model-viewer></td>' +
       '<td class="num w">…</td><td class="num h">…</td><td class="num d">…</td><td class="num m">…</td><td class="num k">…</td>';
     tbody.appendChild(tr);
     const mv = tr.querySelector("model-viewer");
